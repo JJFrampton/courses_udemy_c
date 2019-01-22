@@ -11,36 +11,44 @@ str == str2 // true because \0 null terminator is auto added to end of string
 str == str3 // true because \0 null terminator will stop any chars after being saved
 ```
 
-### ways to declare string
+## Ways to declare string
+### First
 ```
 char str1[] = "hello";
 ```
 str1 value is the address of the start of the array
-ie:
-pointer=
-address: 2349
-value: "h"
-string=
-address: 2349
-value: "h"
+
+ie:  
+pointer=  
+address: 2349  
+value: "h"  
+
+string=  
+address: 2349  
+value: "h"  
 
 **NOTE:** in this example the pointer var and the actual var occupy the same space in memory
+
 **NOTE:** strings only ever point to the first char in the string, the end is noted with a \0 null terminator
 
-this sytle of initializing also wont let you re-assign
-ie:
-str1 = "new" // will fail
+This sytle of initializing also wont let you re-assign
 
+ie:
+```
+str1 = "new" // will fail
+```
+### Second
 ```
 char *str2 = "Goodbye";
 ```
 str2 is a pointer (number - value of which is a memory address) that points to the space in memory where the string starts
-ie:
-pointer=
-address: 1929
-value: 2349
-string=
-address: 2349
+
+ie:  
+pointer=  
+address: 1929  
+value: 2349  
+string=  
+address: 2349  
 value: "h"
 
 **NOTE:** in this example the pointer points to the address where the value lies
@@ -77,80 +85,32 @@ car name[5];
 fgets(name, 5, stdin); // will only get the first 4 chars + null terminator
 ```
 
-## strings v chars
-'x' is a char litteral (a memory location of the value)
-"x" is a string, it will iterate through till it finds a \0
-for chars use ''
-for strings use ""
-
-## assignment
-
-need to use strspy to assign a new string name ie
-strcpy(some[0].name, "new_name");
-
-integer or char can be assigned normally
-some[1].age = 4;
-some[1].group = 'b';
-
 ## issues with prompts
-Need to flush the input if using several prompts
-when user inputs data, that data is temporarily stored in memory
-the next prompt for fgets will look to this temorary stack
-ie: name input = 123456789
-firstname=1234
-lastname=5678
-still in memory buffer=9
-  - the second prompt for the last name reads from the buffer
-the way around this is to flush the buffer between prompts
+Need to flush the input if using several prompts  
+when user inputs data, that data is temporarily stored in memory  
+the next prompt for fgets will look to this temorary stack  
+ie: name input = 123456789  
+firstname=1234  
+lastname=5678  
+still in memory buffer=9  
+  - the second prompt for the last name reads from the buffer  
+
+the way around this is to flush the buffer between prompts  
 
 |flush_example|
 
 ## stack
-the stack is memory used to keep variables and functions alive 
+the stack is memory used to keep variables and functions alive  
 all the variables are removed from the stack once you have exited from that function
 
-to keep variables around after exiting a function, it is not enough just to return the value
+to keep variables around after exiting a function, it is not enough just to return the value  
 you must also use global memory for value by using malloc
 
 ## heap
-the heap is more persistant than the stack memory, variables defined in here will persist after a function exits
-when using malloc you should clear out the memory
-s = malloc(20) // create space in the heap (20 bytes)
+the heap is more persistant than the stack memory, variables defined in here will persist after a function exits  
+when using malloc you should clear out the memory  
+s = malloc(20) // create space in the heap (20 bytes)  
 s[0] = 0; // clear out the memory, this is manditory (or you will append to random bytes), this is the same as using a null char
-
 
 ## C11
 most compilers support C11 which has many 'safer' functions, ie string functions that all end in '_s'
-
-## Structs and Typedefs
-### struct creation
-```
-struct cd {
-  char name[];
-  char artist[];
-  int raiting;
-}
-```
-### struct instantiation
-```
-struct cd my_cd;
-struct cd my_cd_colleciton[4]; // 4 cd collection
-```
-### typedef creation
-```
-typedef struct cd CD; // assuming cd struct is declared
-// or altogether
-typedef struct cd {} CD;
-typedef struct cd {
-  char name[];
-  char artist[];
-  int raiting;
-} CD;
-
-```
-### typedef instantiation
-CD new_cd;
-CD new_collection[4];
-
-## enums
-
